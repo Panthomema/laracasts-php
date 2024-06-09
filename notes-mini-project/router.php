@@ -1,14 +1,6 @@
 <?php
 
-// parses url to get the path
-$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
-
-// routes we have in our app
-$routes = [
-  '/' => 'controllers/index.php',
-  '/about' => 'controllers/about.php',
-  '/contact' => 'controllers/contact.php'
-];
+$routes = require('routes.php');
 
 // checks if route exists in the app and requires the controller, reference stored in the array
 function routeToController($uri, $routes) {
@@ -19,11 +11,14 @@ function routeToController($uri, $routes) {
   }
 }
 
-// returns status code 
-function abort($code = 404) {
+// responds with status code 
+function abort($code = Response::NOT_FOUND) {
   http_response_code($code);
   require "views/{$code}.php";
   die();
 }
+
+// parses url to get the path
+$uri = parse_url($_SERVER['REQUEST_URI'])['path'];
 
 routeToController($uri, $routes);
