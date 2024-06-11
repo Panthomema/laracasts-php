@@ -24,10 +24,12 @@ class Database
     return $this;
   }
 
+  // wrap fetch()
   public function find() {
     return $this->statement->fetch();
   }
 
+  // wrap fetch with error handling
   public function findOrFail() {
     $result = $this->find();
 
@@ -38,6 +40,7 @@ class Database
     return $result;
   }
 
+  // wrap fetchAll()
   public function get() {
     return $this->statement->fetchAll();
   }
