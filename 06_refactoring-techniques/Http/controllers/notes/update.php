@@ -41,5 +41,4 @@ if (empty($errors)) {
 }
 
 // redirect the user
-header('location: /notes');
-die();
+redirect('/notes');

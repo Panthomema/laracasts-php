@@ -29,25 +29,22 @@ $user = $db->query('select * from users where email = :email', [
   'email' => $email
 ])->find();
 
-if ($user) {
-  // If exists, redirect to a login
-  header('location: /');
-  exit();
-} else {
-  // If doesn't, create it, log in and redirect
-  $db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
-    'email' => $email,
-    'password' => password_hash($password, PASSWORD_BCRYPT)
-  ]);
+// If exists, redirect to a login
+if ($user) redirect('/');
 
-  // Mark the user has logged in
-  login([
-    'email' => $email
-  ]);
+// If doesn't, create it, log in and redirect
+$db->query('INSERT INTO users(email, password) VALUES(:email, :password)', [
+  'email' => $email,
+  'password' => password_hash($password, PASSWORD_BCRYPT)
+]);
 
-  // Redirect to wherever (home, dashboard...)
-  header('location: /');
-  exit();
-}
+// Mark the user has logged in
+login([
+  'email' => $email
+]);
+
+// Redirect to wherever (home, dashboard...)
+redirect('/');
+
 
   

@@ -28,10 +28,7 @@ if (empty($errors)) {
     'user_id' => $userId
   ]);
 
-  header('location: /notes');
-  die();
+  redirect('/notes');
 }
-
-// Validation issue
 
 

@@ -17,6 +17,6 @@ $db->query('delete from notes where id = :id', [
   'id' => $_POST['id']
 ]);
 
-header('location: /notes');
-exit();
+redirect('/notes');
+
 
